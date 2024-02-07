@@ -1,0 +1,53 @@
+# .NET Core / .NET Standard
+*.dll
+*.exe
+*.pdb
+*.user
+*.obj
+*.bin
+*.cache
+*.suo
+*.log
+*.vscode
+.vs/
+bin/
+obj/
+TestResults/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+target/
+
+# Compiled files
+*.class
+*.war
+*.ear
+*.jar
+
+# Logs and databases
+*.log
+*.sqlite
+*.sql
+*.h2.db
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+

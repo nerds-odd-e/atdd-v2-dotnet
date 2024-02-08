@@ -1,4 +1,5 @@
 using atdd_v2_dotnet.Data;
+using atdd_v2_dotnet.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<TokenValidationMiddleware>();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();

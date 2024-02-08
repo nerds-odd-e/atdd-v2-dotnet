@@ -26,36 +26,6 @@ public class UsersController : ControllerBase
         return Ok();
     }
 
-    // [HttpGet]
-    // public IEnumerable<User> Get()
-    // {
-    //     return appDbContext.Users.ToList();
-    // }
-    //
-    // // GET api/<API>/5
-    // [HttpGet("{id}")]
-    // public string Get(int id)
-    // {
-    //     return "value";
-    // }
-    //
-    // // POST api/<API>
-    // [HttpPost]
-    // public void Post([FromBody] string value)
-    // {
-    // }
-    //
-    // // PUT api/<API>/5
-    // [HttpPut("{id}")]
-    // public void Put(int id, [FromBody] string value)
-    // {
-    // }
-    //
-    // // DELETE api/<API>/5
-    // [HttpDelete("{id}")]
-    // public void Delete(int id)
-    // {
-    // }
 }
 
     // @Data
@@ -93,7 +63,7 @@ public class UsersController : ControllerBase
 
 public class Token
 {
-    public long now { get; set; } = DateTime.Now.Ticks;
+    public long now { get; set; } = DateTime.Now.Second;
     public string user { get; set; }
 
     public static string MakeToken(string userName)
@@ -104,4 +74,18 @@ public class Token
     private string Create() {
         return Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(this)));
     }
+
+    public static bool ValidToken(string? tokenString)
+    {
+        try
+        {
+            var validToken = JsonSerializer.Deserialize<Token>(Encoding.UTF8.GetString(Convert.FromBase64String(tokenString)));
+            return DateTime.Now.Second - validToken.now < 300;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
 }

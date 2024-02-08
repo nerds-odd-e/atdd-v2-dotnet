@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using atdd_v2_dotnet.Data;
 
@@ -11,9 +12,11 @@ using atdd_v2_dotnet.Data;
 namespace atdd_v2_dotnet.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240208091846_add_deliver_info_columns")]
+    partial class add_deliver_info_columns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,10 +72,6 @@ namespace atdd_v2_dotnet.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("status");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(10,2)")
-                        .HasColumnName("total");
 
                     b.HasKey("Id");
 

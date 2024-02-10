@@ -65,7 +65,7 @@ public class OrdersController : ControllerBase
     public IActionResult Deliver(string code, [FromBody] DeliverInfo deliverInfo)
     {
         var order = appDbContext.Orders.ToList().First(order => order.Code == code);
-        order.DeliverNo = deliverInfo.deliverNo;
+        order.DeliverNo = deliverInfo.DeliverNo;
         order.DeliveredAt = DateTime.Now;
         order.Status = "delivering";
         appDbContext.SaveChanges();
@@ -82,6 +82,6 @@ public class OrdersController : ControllerBase
 
     public class DeliverInfo
     {
-        public string deliverNo { get; set; }
+        public string DeliverNo { get; set; }
     }
 }

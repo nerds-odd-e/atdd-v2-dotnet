@@ -5,23 +5,29 @@ namespace atdd_v2_dotnet.Models;
 
 public class Order
 {
-    [JsonIgnore]
-    public int Id { get; set; }
+    [JsonIgnore] public int Id { get; set; }
+
     public string Code { get; set; }
     public string ProductName { get; set; }
-    [JsonIgnore]
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string RecipientName { get; set; }
-    [JsonIgnore]
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string RecipientMobile { get; set; }
-    [JsonIgnore]
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string RecipientAddress { get; set; }
-    [JsonIgnore]
-    public string DeliverNo { get; set; }
-    [JsonIgnore]
-    public DateTime DeliveredAt { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? DeliverNo { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DateTime? DeliveredAt { get; set; }
+
     public string Status { get; set; }
-    [JsonIgnore]
-    public ICollection<OrderLine> Lines { get; set; }
+
+    [JsonIgnore] public ICollection<OrderLine> Lines { get; set; }
 
     [Column(TypeName = "decimal(10,2)")] public decimal Total { get; set; }
 }

@@ -1,4 +1,5 @@
 using atdd_v2_dotnet.Data;
+using atdd_v2_dotnet.Models;
 using atdd_v2_dotnet.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -67,6 +68,14 @@ public class OrdersController : ControllerBase
         order.DeliverNo = deliverInfo.deliverNo;
         order.DeliveredAt = DateTime.Now;
         order.Status = "delivering";
+        appDbContext.SaveChanges();
+        return Ok();
+    }
+
+    [HttpPost]
+    public IActionResult create([FromBody] Order order)
+    {
+        appDbContext.Orders.Add(order);
         appDbContext.SaveChanges();
         return Ok();
     }

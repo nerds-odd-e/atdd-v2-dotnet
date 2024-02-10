@@ -59,4 +59,20 @@ public class OrdersController : ControllerBase
             order.Status
         });
     }
+
+    [HttpPost("{code}/deliver")]
+    public IActionResult Deliver(string code, [FromBody] DeliverInfo deliverInfo)
+    {
+        var order = appDbContext.Orders.ToList().First(order => order.Code == code);
+        order.DeliverNo = deliverInfo.deliverNo;
+        order.DeliveredAt = DateTime.Now;
+        order.Status = "delivering";
+        appDbContext.SaveChanges();
+        return Ok();
+    }
+
+    public class DeliverInfo
+    {
+        public string deliverNo { get; set; }
+    }
 }

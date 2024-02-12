@@ -65,3 +65,11 @@ services:
     environment:
       - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
 
+  grpc-mock:
+    image: tkpd/gripmock:v1.12.1
+    volumes:
+      - ./:/proto
+    ports:
+      - '4771:4771'
+      - '3254:4770'
+    command: ['/proto/greeter.proto']

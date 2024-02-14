@@ -73,7 +73,7 @@ services:
     ports:
       - '4771:4771'
       - '3254:4770'
-    command: ['/proto/greeter.proto']
+    command: [ '/proto/greeter.proto' ]
 
   zookeeper:
     image: wurstmeister/zookeeper:latest
@@ -98,8 +98,8 @@ services:
       KAFKA_ADVERTISED_LISTENERS: "INSIDE://:9092,OUTSIDE://kafka.tool.net:9094"
       KAFKA_LISTENERS: "INSIDE://:9092,OUTSIDE://kafka.tool.net:9094"
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_LOG_RETENTION_MS: 1000
-      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 50
+    #      KAFKA_LOG_RETENTION_MS: 1000
+    #      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 50
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:

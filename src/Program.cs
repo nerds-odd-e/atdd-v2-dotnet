@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<TokenValidationMiddleware>();
+// app.UseMiddleware<TokenValidationMiddleware>();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();

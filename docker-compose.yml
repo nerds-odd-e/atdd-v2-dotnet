@@ -92,7 +92,7 @@ services:
     depends_on:
       - zookeeper
     environment:
-      KAFKA_CREATE_TOPICS: "dotnet.message:1:1"
+      KAFKA_CREATE_TOPICS: "dotnet.message:1:1,dotnet.data:1:1"
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: "INSIDE://:9092,OUTSIDE://kafka.tool.net:9094"

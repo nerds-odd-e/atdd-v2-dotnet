@@ -1,6 +1,7 @@
 using atdd_v2_dotnet.Data;
 using atdd_v2_dotnet.Middleware;
 using atdd_v2_dotnet.Service;
+using Confluent.Kafka;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddTransient<LogisticService, LogisticService>();
+
+builder.Services.AddSingleton(new ConsumerBuilder<Ignore, string>(new ConsumerConfig
+{
+    GroupId = "production",
+    BootstrapServers = "kafka.tool.net:9094",
+    AutoOffsetReset = AutoOffsetReset.Earliest,
+    EnableAutoCommit = true
+}).Build());
+builder.Services.AddHostedService<KafkaConsumerService>();
 
 var app = builder.Build();
 

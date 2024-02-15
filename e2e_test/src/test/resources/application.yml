@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://127.0.0.1:1433;database=atdd;encrypt=false;
+    username: sa
+    password: Dasasdfng3d1!@#
+    testOnBorrow: true
+    testOnReturn: true
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    timeBetweenEvictionRunsMillis: 3600000
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        #        default_catalog: atdd
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      bootstrap-servers: localhost:9094
+      group-id: test
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+
+
+
+logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+mock-server:
+  endpoint: http://mock-server.tool.net:9081
+
+binstd-endpoint:
+  key: test
+
+standalone-dev-endpoint:
+  url: http://mock-server.tool.net:9081

@@ -1,0 +1,110 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.4")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
+    }
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2020.0.2"
+    }
+}
+
+dependencies {
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.18')
+    testImplementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '12.6.0.jre11'
+    testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
+    testImplementation('org.projectlombok:lombok:1.18.18')
+    testImplementation("com.squareup.okhttp3:okhttp:4.9.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+        exclude group: 'org.skyscreamer', module: 'jsonassert'
+    }
+    testImplementation("mysql:mysql-connector-java:8.0.13")
+    testImplementation("io.cucumber:cucumber-java:6.10.2")
+    testImplementation("io.cucumber:cucumber-spring:6.10.2")
+    testImplementation("org.assertj:assertj-core:3.19.0")
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    testImplementation "org.awaitility:awaitility:4.0.3"
+    testImplementation('org.skyscreamer:jsonassert:1.5.0') {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
+    testImplementation('org.mock-server:mockserver-client-java:5.13.2') {
+        exclude group: 'org.skyscreamer', module: 'jsonassert'
+    }
+//    testImplementation 'com.github.leeonky:jfactory:0.3.20'
+//    testImplementation 'com.github.leeonky:DAL-java:0.3.21'
+//    testImplementation 'com.github.leeonky:jfactory-cucumber:0.1.24'
+//    testImplementation 'com.github.leeonky:jfactory-repo-jpa:0.1.14'
+//    testImplementation 'com.github.leeonky:RESTful-cucumber:0.0.19'
+//    testImplementation 'com.github.leeonky:DAL-extension-basic:0.0.12'
+
+    testImplementation 'com.github.leeonky:jfactory:0.3.23'
+    testImplementation 'com.github.leeonky:jfactory-repo-jpa:0.1.14'
+    testImplementation 'com.github.leeonky:jfactory-cucumber:0.1.31'
+    testImplementation 'com.github.leeonky:jfactory-property-value:0.0.15'
+    testImplementation 'com.github.leeonky:DAL-java:0.5.1'
+    testImplementation 'com.github.leeonky:DAL-extension-basic:0.0.16'
+    testImplementation 'com.github.leeonky:DAL-extension-jdbc:0.0.5'
+    testImplementation 'com.github.leeonky:RESTful-cucumber:0.0.21'
+
+    testImplementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.11.4'
+
+    testImplementation 'io.grpc:grpc-netty:1.61.1'
+    testImplementation 'io.grpc:grpc-protobuf:1.61.1'
+    testImplementation 'io.grpc:grpc-stub:1.61.1'
+    testImplementation 'io.grpc:grpc-services:1.61.1'
+
+    testImplementation 'org.springframework.kafka:spring-kafka:2.6.3'
+    testImplementation 'org.apache.kafka:kafka-clients:2.6.3'
+
+}
+
+task cucumber(type: JavaExec) {
+    dependsOn assemble, testClasses
+    main = "io.cucumber.core.cli.Main"
+    classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+    environment "SPRING_PROFILES_ACTIVE", "test"
+    jvmArgs "-Dfile.encoding=UTF-8", "-Dsun.jnu.encoding=utf-8"
+    args = ['--plugin', 'pretty',
+            '--glue', 'com.odde.atddv2',
+            '--glue', 'com.github.leeonky.jfactory.cucumber',
+            '--glue', 'com.github.leeonky.cucumber.restful',
+            'src/test/resources']
+}
+
+tasks.bootWar { enabled = false }
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
+}

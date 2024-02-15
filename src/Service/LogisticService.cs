@@ -9,7 +9,7 @@ public class LogisticService
     public object queryOrderLogistics(string deliverNumber)
     {
         var logisticsResult = JsonSerializer.Deserialize<Logistics>(httpClient.GetStringAsync(
-            "http://mock-server.tool.net:9081/express/query?type=auto&appkey=test&number=" +
+            "http://mock-server.tool.net:1080/express/query?type=auto&appkey=test&number=" +
             deliverNumber).Result)!.result;
         return new
         {

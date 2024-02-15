@@ -36,7 +36,7 @@ spring:
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 
 mock-server:
-  endpoint: http://mock-server.tool.net:9081
+  endpoint: http://mock-server.tool.net:1080
 
 binstd-endpoint:
   key: test

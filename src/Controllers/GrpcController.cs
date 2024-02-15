@@ -16,7 +16,7 @@ public class GrpcController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var channel = GrpcChannel.ForAddress("http://localhost:3254");
+        var channel = GrpcChannel.ForAddress("http://grpc-mock.tool.net:4770");
         var client = new Greeter.GreeterClient(channel);
 
         var request = new HelloRequest { Name = "John" };

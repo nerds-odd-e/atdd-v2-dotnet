@@ -3,7 +3,6 @@ version: '3.4'
 services:
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mysql.test.atdd
     volumes:
       - ./data/mssql/:/var/opt/mssql
     environment:
@@ -11,59 +10,26 @@ services:
       ACCEPT_EULA: Y
     ports:
       - "1433:1433"
+    networks:
+      default:
+        aliases:
+          - mysql.test.atdd
 
   mock-server:
     image: 'mockserver/mockserver:5.13.2'
-    container_name: mock-server.tool.net
     ports:
-      - 9081:1080
+      - 1080:1080
+    expose:
+      - 1080
     command: [ "-serverPort", "1080", "-logLevel", "INFO" ]
     healthcheck:
       test: [ "CMD", "nc" ,"-z", "localhost", "1080" ]
       timeout: 20s
       retries: 10
-
-  sqlpad:
-    image: sqlpad/sqlpad:5.6
-    container_name: 'sqlpad.test.atdd'
-    ports:
-      - '3000:3000'
-    links:
-      - mssql
-    environment:
-      SQLPAD_ADMIN: 'admin'
-      SQLPAD_ADMIN_PASSWORD: '123456'
-      SQLPAD_APP_LOG_LEVEL: info
-      SQLPAD_WEB_LOG_LEVEL: warn
-      SQLPAD_CONNECTIONS__sqlserverdemo__name: SQL Server Demo
-      SQLPAD_CONNECTIONS__sqlserverdemo__driver: sqlserver
-      SQLPAD_CONNECTIONS__sqlserverdemo__host: mssql
-      SQLPAD_CONNECTIONS__sqlserverdemo__database: master
-      SQLPAD_CONNECTIONS__sqlserverdemo__username: sa
-      SQLPAD_CONNECTIONS__sqlserverdemo__password: Dasasdfng3d1!@#
-
-  selenium-standalone-chrome4:
-    image: selenium/standalone-chrome:4.0.0-beta-3-20210426
-    container_name: web-driver.test.atdd
-    ports:
-      - '4444:4444'
-      - '7900:7900'
-    extra_hosts:
-      - "api.net:${HOST_NAME:-127.0.0.1}"
-      - "host.docker.internal:host-gateway"
-    environment:
-      - VNC_NO_PASSWORD=1
-
-  web-driver_video:
-    image: josephyao/selenium-video-ffmpeg:v0.0.3
-    volumes:
-      - ../../videos:/videos
-    depends_on:
-      - selenium-standalone-chrome4
-    ports:
-      - "9000:9000"
-    environment:
-      - DISPLAY_CONTAINER_NAME=selenium-standalone-chrome4
+    networks:
+      default:
+        aliases:
+          - mock-server.tool.net
 
   grpc-mock:
     #image: tkpd/gripmock:v1.12.1
@@ -72,18 +38,22 @@ services:
       - ./:/proto
     ports:
       - '4771:4771'
-      - '3254:4770'
+      - '4770:4770'
+    expose:
+      - 4770
     command: [ '/proto/greeter.proto' ]
+    networks:
+      default:
+        aliases:
+          - grpc-mock.tool.net
 
   zookeeper:
     image: wurstmeister/zookeeper:latest
-    container_name: zookeeper.test.atdd
     ports:
       - "2181:2181"
 
   kafka:
     image: wurstmeister/kafka:2.13-2.6.3
-    container_name: kafka.test.atdd
     ports:
       - "9094:9094"
     expose:
@@ -106,3 +76,8 @@ services:
       default:
         aliases:
           - kafka.tool.net
+
+  dotnet:
+    build: .
+    ports:
+      - "10081:80"

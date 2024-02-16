@@ -9,6 +9,14 @@
     }
   },
   "profiles": {
+    "e2e": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:10081",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "E2e"
+      }
+    },
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,

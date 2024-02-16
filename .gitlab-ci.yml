@@ -19,9 +19,9 @@ test:
 #  only:
 #    - /^v\d+\.\d+\.\d+-alpha\.\d+$/
 #    - ci
-  image: docker:20.10.2
+  image: docker:24.0.9
   services:
-    - docker:20.10.2-dind
+    - docker:24.0.9-dind
 #  artifacts:
 #    paths:
 #      - dev-ops/videos/*.mp4

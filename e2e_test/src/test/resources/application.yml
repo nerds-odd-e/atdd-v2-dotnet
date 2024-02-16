@@ -31,7 +31,8 @@ spring:
       properties:
         spring.json.trusted.packages: '*'
 
-
+  redis:
+    host: redis.tool.net
 
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 

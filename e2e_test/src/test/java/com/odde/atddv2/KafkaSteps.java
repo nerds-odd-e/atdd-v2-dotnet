@@ -2,12 +2,14 @@ package com.odde.atddv2;
 
 import com.github.leeonky.dal.extensions.jdbc.DataBaseBuilder;
 import com.github.leeonky.jfactory.cucumber.JData;
+import io.cucumber.java.Before;
 import io.cucumber.java.zh_cn.假如;
 import io.cucumber.java.zh_cn.当;
 import io.cucumber.java.zh_cn.那么;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.sql.DataSource;
@@ -58,5 +60,18 @@ public class KafkaSteps {
     @那么("所有{string}最终应为:")
     public void 所有最终应为(String query, String expression) {
         await().untilAsserted(() -> jData.allShould(query, expression));
+    }
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
+    @Before
+    public void clearRedis() {
+        redisTemplate.getConnectionFactory().getConnection().flushAll();
+    }
+
+    @当("向缓存{string}写入:")
+    public void 向缓存写入(String key, String value) {
+        redisTemplate.opsForValue().set(key, value);
     }
 }

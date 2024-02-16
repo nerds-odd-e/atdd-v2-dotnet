@@ -32,8 +32,6 @@ test:
 #    when: on_failure
   script:
     - apk add --no-cache docker-compose
-    - mkdir data
-    - chmod 777 data
     - ./ci-build.sh
     - ./ci-app-run.sh
     - ./ci-test.sh

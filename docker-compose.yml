@@ -3,8 +3,8 @@ version: '3.4'
 services:
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    volumes:
-      - ./data/mssql/:/var/opt/mssql
+#    volumes:
+#      - ./data/mssql/:/var/opt/mssql
     environment:
       SA_PASSWORD: Dasasdfng3d1!@#
       ACCEPT_EULA: Y

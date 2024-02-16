@@ -8,8 +8,8 @@ test:
     - docker:24.0.9-dind
   script:
     - apk add --no-cache docker-compose
-    - mkdir data
-    - chown 10001:10001 data
+#    - mkdir data
+#    - chown 10001:10001 data
     - ./ci-build.sh
     - ./ci-app-run.sh
     - ./ci-test.sh

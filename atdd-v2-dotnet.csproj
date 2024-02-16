@@ -34,5 +34,21 @@
     <ItemGroup>
         <Protobuf Include="greeter.proto" GrpcServices="Client" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Compile Remove="e2e_test\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <EmbeddedResource Remove="e2e_test\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Content Remove="e2e_test\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Remove="e2e_test\**" />
+    </ItemGroup>
 
 </Project>

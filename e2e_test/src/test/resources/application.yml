@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://127.0.0.1:1433;database=atdd;encrypt=false;
+    url: jdbc:sqlserver://mssql.tool.net:1433;database=atdd;encrypt=false;
     username: sa
     password: Dasasdfng3d1!@#
     testOnBorrow: true
@@ -19,11 +19,11 @@ spring:
 
   kafka:
     producer:
-      bootstrap-servers: localhost:9094
+      bootstrap-servers: kafka.tool.net:9094
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      bootstrap-servers: localhost:9094
+      bootstrap-servers: kafka.tool.net:9094
       group-id: test
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

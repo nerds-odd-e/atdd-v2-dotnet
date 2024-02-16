@@ -13,7 +13,7 @@ services:
     networks:
       default:
         aliases:
-          - mysql.test.atdd
+          - mssql.tool.net
 
   mock-server:
     image: 'mockserver/mockserver:5.13.2'
@@ -77,7 +77,19 @@ services:
         aliases:
           - kafka.tool.net
 
+  jdk:
+    image: openjdk:11
+    working_dir: /tmp/build/
+    volumes:
+      - ./e2e_test/:/tmp/build/
+    command: tail -f /dev/null
+
   dotnet:
     build: .
     ports:
       - "10081:80"
+    networks:
+      default:
+        aliases:
+          - api.net
+

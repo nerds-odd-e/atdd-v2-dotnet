@@ -34,7 +34,7 @@ public class ApiOrderSteps {
 
     @PostConstruct
     public void setBaseUrl() {
-        restfulStep.setBaseUrl("http://localhost:10081/api");
+        restfulStep.setBaseUrl("http://api.net:10081/api");
     }
 
     @SneakyThrows
@@ -43,11 +43,11 @@ public class ApiOrderSteps {
         User defaultUser = new User().setUserName("j").setPassword("j");
         userRepo.save(defaultUser);
         ObjectMapper objectMapper = new ObjectMapper();
-        restfulStep.setBaseUrl("http://localhost:10081");
+        restfulStep.setBaseUrl("http://api.net:10081");
         restfulStep.post("/users/login", DocString.create(objectMapper.writeValueAsString(defaultUser)));
         String token = restfulStep.response("headers.token");
         restfulStep.header("token", token);
-        restfulStep.setBaseUrl("http://localhost:10081/api");
+        restfulStep.setBaseUrl("http://api.net:10081/api");
     }
 
     @并且("存在快递单{string}的物流信息如下")
@@ -86,7 +86,7 @@ public class ApiOrderSteps {
     @并且("打桩grpc服务:")
     public void 打桩grpc服务(String grpcStub) {
         RestfulStep restfulStep = new RestfulStep();
-        restfulStep.setBaseUrl("http://localhost:4771");
+        restfulStep.setBaseUrl("http://grpc-mock.tool.net:4771");
         restfulStep.delete("/api/stubs");
         restfulStep.post("/api/stubs", grpcStub);
     }

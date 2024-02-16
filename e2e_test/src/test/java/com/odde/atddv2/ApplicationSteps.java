@@ -32,6 +32,6 @@ public class ApplicationSteps {
 
     @PostConstruct
     public void setBaseUrl() {
-        restfulStep.setBaseUrl("http://127.0.0.1:10081/api/");
+        restfulStep.setBaseUrl("http://api.net:10081/api/");
     }
 }

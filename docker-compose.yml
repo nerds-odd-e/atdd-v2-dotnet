@@ -3,8 +3,8 @@ version: '3.4'
 services:
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
-#    volumes:
-#      - ./data/mssql/:/var/opt/mssql
+    volumes:
+      - ./data/mssql/:/var/opt/mssql
     environment:
       SA_PASSWORD: Dasasdfng3d1!@#
       ACCEPT_EULA: Y
@@ -76,6 +76,15 @@ services:
       default:
         aliases:
           - kafka.tool.net
+
+  redis:
+    image: redis:7.2.4-alpine
+    ports:
+      - '6379:6379'
+    networks:
+      default:
+        aliases:
+          - redis.tool.net
 
   jdk:
     image: openjdk:11

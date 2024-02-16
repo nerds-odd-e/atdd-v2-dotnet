@@ -14,3 +14,19 @@
     """
     body.json.message= hello
     """
+
+  场景: 写redis
+    当POST "/redis":
+    """
+    {
+      "message": "world"
+    }
+    """
+    那么response should be:
+    """
+    code=200
+    """
+    那么缓存"redis"应为:
+    """
+    json.message= world
+    """

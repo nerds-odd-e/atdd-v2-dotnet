@@ -74,4 +74,9 @@ public class KafkaSteps {
     public void 向缓存写入(String key, String value) {
         redisTemplate.opsForValue().set(key, value);
     }
+
+    @那么("缓存{string}应为:")
+    public void 缓存应为(String key, String expression) {
+        await().ignoreExceptions().untilAsserted(() -> expect(redisTemplate.opsForValue().get(key)).should(expression));
+    }
 }

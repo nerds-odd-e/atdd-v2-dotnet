@@ -20,4 +20,13 @@ public class RedisController : ControllerBase
         var redis = ConnectionMultiplexer.Connect("redis.tool.net").GetDatabase();
         return Ok(redis.StringGet("redis").ToString());
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Post()
+    {
+        var redis = (await ConnectionMultiplexer.ConnectAsync("redis.tool.net")).GetDatabase();
+        using var reader = new StreamReader(Request.Body, leaveOpen: true);
+        redis.StringSet("redis", await reader.ReadToEndAsync());
+        return Ok();
+    }
 }

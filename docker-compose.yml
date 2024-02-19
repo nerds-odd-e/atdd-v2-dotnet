@@ -34,7 +34,7 @@ services:
     #image: tkpd/gripmock:v1.12.1
     image: bavix/gripmock:2.6.8
     volumes:
-      - ./:/proto
+      - ./greeter.proto:/proto/greeter.proto
     ports:
       - '4771:4771'
       - '4770:4770'

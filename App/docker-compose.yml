@@ -95,17 +95,37 @@ services:
       - 'gradle-user-home:/tmp/tmp-user/.gradle'
     command: tail -f /dev/null
 
+
   dotnet:
-    build: .
+    image: mcr.microsoft.com/dotnet/sdk:7.0
     ports:
       - "10081:10081"
-    entrypoint: ["./atdd-v2-dotnet"]
-    environment:
-      ASPNETCORE_ENVIRONMENT: E2e
+    working_dir: /tmp/build/
+    volumes:
+      - './:/tmp/build/'
+    command: bash ./launch.sh
+#    command: tail -f /dev/null
     networks:
       default:
         aliases:
           - api.net
+
+#  dotnet:
+#    build: .
+#    ports:
+#      - "10081:10081"
+##    entrypoint: ["bash","./launch.sh"]
+#    entrypoint: ['tail', '-f', '/dev/null']
+#    environment:
+#      ASPNETCORE_ENVIRONMENT: E2e
+#    volumes:
+#      - './launch.sh:/app/launch.sh'
+#      - './reports:/app/reports/'
+#      - './:/app/src/'
+#    networks:
+#      default:
+#        aliases:
+#          - api.net
 
 volumes:
   gradle-user-home:

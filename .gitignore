@@ -52,3 +52,5 @@ target/
 Thumbs.db
 
 App/data
+coverage.cobertura.xml
+coverage-report/

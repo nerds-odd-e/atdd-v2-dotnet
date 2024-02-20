@@ -29,27 +29,34 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="data\" />
-    </ItemGroup>
-    
-    <ItemGroup>
         <Protobuf Include="greeter.proto" GrpcServices="Client" />
     </ItemGroup>
     
     <ItemGroup>
       <Compile Remove="e2e_test\**" />
+      <Compile Remove="data\**" />
     </ItemGroup>
     
     <ItemGroup>
       <EmbeddedResource Remove="e2e_test\**" />
+      <EmbeddedResource Remove="data\**" />
     </ItemGroup>
     
     <ItemGroup>
       <Content Remove="e2e_test\**" />
+      <Content Remove="data\**" />
     </ItemGroup>
     
     <ItemGroup>
       <None Remove="e2e_test\**" />
+      <None Remove="data\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="**\*.config" />
+      <_ContentIncludedByDefault Remove="**\*.json" />
+      <_ContentIncludedByDefault Remove="**\*.cshtml" />
+      <_ContentIncludedByDefault Remove="**\*.razor" />
     </ItemGroup>
 
 </Project>

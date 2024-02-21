@@ -11,7 +11,7 @@ test:
       coverage_report:
         coverage_format: cobertura
         path: App/coverage.cobertura.xml
-  coverage: '/| atdd-v2-dotnet | \d+(?:\.\d+)?/'
+  coverage: '/Total\s*\|\s*(\d+(?:\.\d+)?)/'
   script:
     - apk add --no-cache docker-compose
     - cd App

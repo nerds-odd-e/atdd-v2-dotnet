@@ -14,7 +14,7 @@ public class OrderLineTest
     {
         var orderLine = new OrderLine();
 
-        Assert.Throws<ArgumentException>(() => orderLine.SetQuantity(0));
+        Assert.Throws<ArgumentException>(() => orderLine.Quantity = 0);
     }
 
     [Test]
@@ -22,6 +22,6 @@ public class OrderLineTest
     {
         var orderLine = new OrderLine();
 
-        Assert.Throws<ArgumentException>(() => orderLine.SetQuantity(-1));
+        Assert.Throws<ArgumentException>(() => orderLine.Quantity = -1);
     }
 }

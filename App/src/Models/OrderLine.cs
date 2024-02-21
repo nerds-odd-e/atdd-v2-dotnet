@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Mvc;
 
 namespace atdd_v2_dotnet.Models;
 
@@ -19,9 +20,10 @@ public class OrderLine
     public int Quantity
     {
         get => _quantity;
+        set => SetQuantity(value);
     }
 
-    public void SetQuantity(int value)
+    private void SetQuantity(int value)
     {
         if (value <= 0)
         {

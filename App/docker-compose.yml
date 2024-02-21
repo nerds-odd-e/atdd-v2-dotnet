@@ -102,8 +102,19 @@ services:
       - "10081:10081"
     working_dir: /tmp/build/
     volumes:
-      - './:/tmp/build/'
-    command: bash ./launch.sh
+      - '../AtddV2DotNet.sln:/tmp/build/AtddV2DotNet.sln'
+      - '../App/Properties:/tmp/build/App/Properties'
+      - '../App/launch.sh:/tmp/build/App/launch.sh'
+      - '../App/appsettings.json:/tmp/build/App/appsettings.json'
+      - '../App/appsettings.Development.json:/tmp/build/App/appsettings.Development.json'
+      - '../App/appsettings.E2e.json:/tmp/build/App/appsettings.E2e.json'
+      - '../App/greeter.proto:/tmp/build/App/greeter.proto'
+      - '../App/src:/tmp/build/App/src'
+      - '../App/atdd-v2-dotnet.csproj:/tmp/build/App/atdd-v2-dotnet.csproj'
+      - '../atdd-v2-dotnet.Tests/atdd-v2-dotnet.Tests.csproj:/tmp/build/atdd-v2-dotnet.Tests/atdd-v2-dotnet.Tests.csproj'
+      - '../atdd-v2-dotnet.Tests/src:/tmp/build/atdd-v2-dotnet.Tests/src'
+      - 'nuget-user-home:/root/.nuget/packages'
+    command: bash App/launch.sh
 #    command: tail -f /dev/null
     networks:
       default:
@@ -130,3 +141,5 @@ services:
 volumes:
   gradle-user-home:
     name: gradle_repo
+  nuget-user-home:
+    name: nuget_repo

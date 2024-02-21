@@ -6,12 +6,12 @@ test:
   image: docker:24.0.9
   services:
     - docker:24.0.9-dind
-  artifacts:
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: App/coverage.cobertura.xml
-  coverage: '/Total\s*\|\s*(\d+(?:\.\d+)?)/'
+#  artifacts:
+#    reports:
+#      coverage_report:
+#        coverage_format: cobertura
+#        path: App/coverage.cobertura.xml
+  coverage: '/Line coverage:\s*(\d+(?:\.\d+)?)/'
   script:
     - apk add --no-cache docker-compose
     - cd App

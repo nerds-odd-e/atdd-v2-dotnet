@@ -1,5 +1,15 @@
 [![coverage report](https://gitlab.com/JosephYao/atdd-v2-dotnet/badges/master/coverage.svg)](https://gitlab.com/JosephYao/atdd-v2-dotnet/-/commits/master) Code coverage includes both unit tests and e2e tests
 
+# Update the hosts file
+
+```
+127.0.0.1   grpc-mock.tool.net
+127.0.0.1   mssql.tool.net
+127.0.0.1	kafka.tool.net
+127.0.0.1   redis.tool.net
+127.0.0.1	mock-server.tool.net
+```
+
 # Start up the environment
 
 ```shell
